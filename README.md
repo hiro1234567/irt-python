@@ -42,6 +42,7 @@ Birnbaum 記法（a, b, D=1.702）は採用していません。
 ## 制作者
 
 松本宏之（Hiroyuki Matsumoto）
+合同会社デジタルボーイ代表（AI開発、データサイエンス、コンサルを行う会社です）
 中小企業診断士 × データサイエンティスト × AIエンジニア
 
 - Web: https://bigdata-analytics.jp/
