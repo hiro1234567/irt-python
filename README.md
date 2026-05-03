@@ -8,12 +8,24 @@ IRTの数理的基礎から推定・応用までを、数式とPythonコード�
 
 | # | テーマ | スクリプト | 記事 |
 |---|---|---|---|
+| P1 | **PythonでIRT完全ガイド（ピラーページ）** | — | [記事](https://bigdata-analytics.jp/analytics/irt-python-guide/) |
 | T1 | IRTの数理的基礎：ロジスティックモデルとICCの導出 | `t01_mathematical_foundations.py` | [記事](https://bigdata-analytics.jp/analytics/irt-mathematical-foundations/) |
 | T2 | IRTの尤度関数と最尤推定：θをどう求めるか | `t02_likelihood_mle.py` | [記事](https://bigdata-analytics.jp/analytics/irt-likelihood-mle/) |
-| T11 | テスト情報関数とテスト設計：最適な問題セットの設計法 | `t11_test_information_design.py` | [記事](https://bigdata-analytics.jp/analytics/irt-test-information-design/) |
-| T13 | 多次元IRT（MIRT）の理論：複数能力を同時に測定するモデル | `t13_mirt_theory.py` | [記事](https://bigdata-analytics.jp/analytics/irt-mirt-theory/) |
-
-今後、2パラメータモデル（T3）、3パラメータモデル（T4）、推定法（T5-T7）、多値モデル（T8-T10）、多次元IRT推定（T14）、DIF（T15）、Multilevel IRT（T16-T17）と順次追加予定です。
+| T3 | 2パラメータモデル：識別力αを項目ごとに解放する | `t03_2pl_model.py` | [記事](https://bigdata-analytics.jp/analytics/irt-2pl-model/) |
+| T4 | 3パラメータモデル：当て推量χとPerson Fit | `t04_3pl_person_fit.py` | [記事](https://bigdata-analytics.jp/analytics/irt-3pl-person-fit/) |
+| T5 | 同時最尤推定法（JMLE） | `t05_jmle_estimation.py` | [記事](https://bigdata-analytics.jp/analytics/irt-jmle-estimation/) |
+| T6 | 周辺最尤推定法（MMLE）とEAP推定 | `t06_mmle_estimation.py` | [記事](https://bigdata-analytics.jp/analytics/irt-mmle-estimation/) |
+| T7 | MCMCによるIRT母数推定 | `t07_mcmc_estimation.py` | [記事](https://bigdata-analytics.jp/analytics/irt-mcmc-estimation/) |
+| T8 | 部分得点モデル（PCM）と評定尺度モデル（RSM） | `t08_polytomous_pcm_rsm.py` | [記事](https://bigdata-analytics.jp/analytics/irt-polytomous-pcm-rsm/) |
+| T9 | 段階反応モデル（GRM）の数理 | `t09_grm_theory.py` | [記事](https://bigdata-analytics.jp/analytics/irt-grm-theory/) |
+| T10 | GRMの母数推定とMCMC | `t10_grm_mcmc_estimation.py` | [記事](https://bigdata-analytics.jp/analytics/irt-grm-mcmc-estimation/) |
+| T11 | テスト情報関数とテスト設計 | `t11_test_information_design.py` | [記事](https://bigdata-analytics.jp/analytics/irt-test-information-design/) |
+| T12 | 等化とリンキング | `t12_linking_equating.py` | [記事](https://bigdata-analytics.jp/analytics/irt-linking-equating/) |
+| T13 | 多次元IRT（MIRT）の理論 | `t13_mirt_theory.py` | [記事](https://bigdata-analytics.jp/analytics/irt-mirt-theory/) |
+| T14 | 多次元IRT（MIRT）のPython実装と推定 | `t14_mirt_estimation.py` | [記事](https://bigdata-analytics.jp/analytics/irt-mirt-estimation/) |
+| T15 | 項目機能差異（DIF）の検出 | `t15_dif_detection.py` | [記事](https://bigdata-analytics.jp/analytics/irt-dif-detection/) |
+| T16 | Multilevel IRTの理論：GLMMフレームワーク | `t16_multilevel_theory.py` | [記事](https://bigdata-analytics.jp/analytics/irt-multilevel-theory/) |
+| T17 | Multilevel IRT × POS分析 | `t17_multilevel_pos_analysis.py` | [記事](https://bigdata-analytics.jp/analytics/irt-multilevel-pos-analysis/) |
 
 ## ベース書籍
 
