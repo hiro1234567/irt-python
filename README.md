@@ -10,9 +10,9 @@ IRTの数理的基礎から推定・応用までを、数式とPythonコード�
 |---|---|---|---|
 | T1 | IRTの数理的基礎：ロジスティックモデルとICCの導出 | `t01_mathematical_foundations.py` | [記事](https://bigdata-analytics.jp/analytics/irt-mathematical-foundations/) |
 | T2 | IRTの尤度関数と最尤推定：θをどう求めるか | `t02_likelihood_mle.py` | [記事](https://bigdata-analytics.jp/analytics/irt-likelihood-mle/) |
-| T12 | テスト情報関数とテスト設計：最適な問題セットの設計法 | `t12_test_information_design.py` | [記事](https://bigdata-analytics.jp/analytics/irt-test-information-design/) |
+| T11 | テスト情報関数とテスト設計：最適な問題セットの設計法 | `t11_test_information_design.py` | [記事](https://bigdata-analytics.jp/analytics/irt-test-information-design/) |
 
-今後、2パラメータモデル（T3）、3パラメータモデル（T4）、推定法（T5-T7）、多値モデル（T9-T11）、多次元IRT（T14-T15）、DIF（T16）、Multilevel IRT（T17-T18）と順次追加予定です。
+今後、2パラメータモデル（T3）、3パラメータモデル（T4）、推定法（T5-T7）、多値モデル（T8-T10）、多次元IRT（T13-T14）、DIF（T15）、Multilevel IRT（T16-T17）と順次追加予定です。
 
 ## ベース書籍
 
