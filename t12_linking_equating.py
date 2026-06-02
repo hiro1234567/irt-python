@@ -6,15 +6,24 @@ T12: IRTの等化とリンキング：異なるテストの得点を同じ物差
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t12_linking_equating.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t12_linking_equating.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
-# Code Block 1
+# Code Block 1: import と matplotlib 共通設定
 # ============================================================
 
 import numpy as np
 from scipy import optimize
 import matplotlib.pyplot as plt
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 # 図の見栄えを統一するための共通設定
 plt.rcParams.update({
@@ -28,7 +37,7 @@ plt.rcParams.update({
 })
 
 # ============================================================
-# Code Block 2
+# Code Block 2: 変換係数 ζ・κ によるパラメータ変換の確認
 # ============================================================
 
 # 変換係数
@@ -47,7 +56,7 @@ print(f"δ の変換: {delta_form2:.2f} → {delta_star:.2f}")
 print(f"α の変換: {alpha_form2:.2f} → {alpha_star:.2f}")
 
 # ============================================================
-# Code Block 3
+# Code Block 3: アンカー項目を共有する2フォームの真値を生成
 # ============================================================
 
 np.random.seed(42)
@@ -89,7 +98,7 @@ print(f"グループ1の平均能力：{theta_group1.mean():.3f}")
 print(f"グループ2の平均能力：{theta_group2.mean():.3f}")
 
 # ============================================================
-# Code Block 4
+# Code Block 4: 2PL IRF と応答データの生成
 # ============================================================
 
 def irf_2pl(theta, alpha, delta):
@@ -116,7 +125,7 @@ print(f"フォーム1の平均正答率：{resp1.mean():.3f}")
 print(f"フォーム2の平均正答率：{resp2.mean():.3f}")
 
 # ============================================================
-# Code Block 5
+# Code Block 5: メトリックがずれた推定値をシミュレーション
 # ============================================================
 
 # メトリックのずれをシミュレーション
@@ -145,7 +154,7 @@ print("アンカー項目の推定値（フォーム2のメトリック）：")
 print(f"  α平均: {alpha_est2[anchor_idx].mean():.3f},  δ平均: {delta_est2[anchor_idx].mean():.3f}")
 
 # ============================================================
-# Code Block 6
+# Code Block 6: Mean-mean 法による変換係数の推定
 # ============================================================
 
 def mean_mean_method(alpha1_anchor, delta1_anchor, alpha2_anchor, delta2_anchor):
@@ -178,7 +187,7 @@ print(f"Mean-mean法: ζ = {zeta_mm:.4f}, κ = {kappa_mm:.4f}")
 print(f"真の値:       ζ = {zeta_true:.4f}, κ = {kappa_true:.4f}")
 
 # ============================================================
-# Code Block 7
+# Code Block 7: Mean-sigma 法による変換係数の推定
 # ============================================================
 
 def mean_sigma_method(delta1_anchor, delta2_anchor):
@@ -203,7 +212,7 @@ print(f"Mean-sigma法: ζ = {zeta_ms:.4f}, κ = {kappa_ms:.4f}")
 print(f"真の値:        ζ = {zeta_true:.4f}, κ = {kappa_true:.4f}")
 
 # ============================================================
-# Code Block 8
+# Code Block 8: Stocking-Lord 法による変換係数の推定
 # ============================================================
 
 def tcf(theta, alpha, delta):
@@ -260,7 +269,7 @@ print(f"最適化の収束: {result_sl.success}")
 print(f"損失関数の最終値: {result_sl.fun:.6f}")
 
 # ============================================================
-# Code Block 9
+# Code Block 9: Haebara 法による変換係数の推定
 # ============================================================
 
 def haebara_loss(params, theta_grid, alpha1_anchor, delta1_anchor,
@@ -294,7 +303,7 @@ print(f"Stocking-Lord法:  ζ = {zeta_sl:.4f}, κ = {kappa_sl:.4f}")
 print(f"真の値:            ζ = {zeta_true:.4f}, κ = {kappa_true:.4f}")
 
 # ============================================================
-# Code Block 10
+# Code Block 10: 4手法の推定結果を一覧比較
 # ============================================================
 
 methods = ['Mean-mean', 'Mean-sigma', 'Stocking-Lord', 'Haebara', '真の値']
@@ -307,7 +316,7 @@ for m, z, k in zip(methods, zetas, kappas):
     print(f"{m:<16} {z:>8.4f} {k:>8.4f}")
 
 # ============================================================
-# Code Block 11
+# Code Block 11: 等化前のアンカー項目 TCF を可視化
 # ============================================================
 
 theta_plot = np.linspace(-4, 4, 200)
@@ -325,11 +334,12 @@ ax.set_title('等化前：アンカー項目のTCF')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig01_tcf_before_equating.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig01_tcf_before_equating.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
-# Code Block 12
+# Code Block 12: 等化後のアンカー項目 TCF を可視化
 # ============================================================
 
 # フォーム2のアンカー項目パラメータを変換
@@ -348,11 +358,12 @@ ax.set_title('等化後：アンカー項目のTCF')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig02_tcf_after_equating.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig02_tcf_after_equating.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
-# Code Block 13
+# Code Block 13: 等化前後の TCF を並べて比較
 # ============================================================
 
 fig, axes = plt.subplots(1, 2, figsize=(16, 6))
@@ -376,11 +387,12 @@ axes[1].legend()
 axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig03_tcf_before_after.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig03_tcf_before_after.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
-# Code Block 14
+# Code Block 14: フォーム2受験者の θ 分布を等化前後で比較
 # ============================================================
 
 # フォーム2受験者の能力推定値を変換
@@ -411,7 +423,8 @@ axes[1].legend()
 axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig04_theta_distributions.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig04_theta_distributions.png', bbox_inches='tight')
 plt.show()
 
 print(f"フォーム1受験者：平均 = {theta_group1.mean():.3f}, SD = {theta_group1.std():.3f}")
@@ -419,7 +432,7 @@ print(f"フォーム2受験者（変換前）：平均 = {theta2_on_form2_metric
 print(f"フォーム2受験者（等化後）：平均 = {theta2_equated.mean():.3f}, SD = {theta2_equated.std():.3f}")
 
 # ============================================================
-# Code Block 15
+# Code Block 15: 固定項目パラメータ法のコンセプト実装
 # ============================================================
 
 # 固定項目パラメータ法のコンセプトコード
@@ -449,7 +462,7 @@ print("- 変換係数ζ, κを明示的に計算する必要がない")
 print("- Rではmirtパッケージの START/FIXED オプションで実装可能")
 
 # ============================================================
-# Code Block 16
+# Code Block 16: 併行キャリブレーションのデータ構造
 # ============================================================
 
 # 併行キャリブレーション用のデータ構成を可視化

@@ -6,6 +6,13 @@ T14: 多次元IRT（MIRT）のPython実装と推定：情報関数・回転不�
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t14_mirt_estimation.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t14_mirt_estimation.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -16,6 +23,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import minimize
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 # 図の見栄えを統一するための共通設定
 plt.rcParams.update({
@@ -92,7 +101,8 @@ ax.set_zlabel('情報量 I')
 ax.set_title('M2PL 多次元項目情報曲面\n（αベクトル方向、α=(2.0, 0.5), γ=2.0）')
 ax.view_init(elev=25, azim=-60)
 plt.tight_layout()
-plt.savefig('irt_mirt_est_info_surface.png', dpi=220, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_mirt_est_info_surface.png', dpi=220, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -114,7 +124,8 @@ ax.set_ylabel('theta2')
 ax.set_title('項目情報の等高線\n（シアン破線 = P=0.5の変曲線）')
 ax.set_aspect('equal')
 plt.tight_layout()
-plt.savefig('irt_mirt_est_info_contour.png', dpi=220, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_mirt_est_info_contour.png', dpi=220, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -191,7 +202,8 @@ ax.set_xlabel('theta1* / alpha1*')
 ax.set_ylabel('theta2* / alpha2*')
 
 plt.tight_layout()
-plt.savefig('irt_mirt_est_rotation.png', dpi=220, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_mirt_est_rotation.png', dpi=220, bbox_inches='tight')
 plt.show()
 
 # ============================================================

@@ -6,6 +6,13 @@ T08: 部分得点モデル（PCM）と評定尺度モデル（RSM）｜Rasch系�
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t08_polytomous_pcm_rsm.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t08_polytomous_pcm_rsm.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -14,6 +21,8 @@ Repository: https://github.com/hiro1234567/irt-python
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -105,7 +114,8 @@ ax.legend()
 ax.set_ylim(0, 1.02)
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig01_pcm_orf_ordered.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig01_pcm_orf_ordered.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -143,7 +153,8 @@ axes[1].set_ylim(0, 1.02)
 axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig02_pcm_orf_reversed.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig02_pcm_orf_reversed.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -179,7 +190,8 @@ for idx, item in enumerate(items):
     ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig03_pcm_variable_categories.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig03_pcm_variable_categories.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -267,7 +279,8 @@ for idx, d_j in enumerate(delta_items):
 plt.suptitle('RSM：項目位置が異なる2項目のORF\n'
              f'共通閾値 τ = {taus_common}', fontsize=16, y=1.04)
 plt.tight_layout()
-plt.savefig('fig04_rsm_two_items.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig04_rsm_two_items.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -329,7 +342,8 @@ ax.set_title('カテゴリ数による情報量の違い（PCM）')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig05_pcm_info_categories.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig05_pcm_info_categories.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -377,7 +391,8 @@ ax.set_title('RSMの項目情報関数とテスト情報関数\n'
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig06_rsm_info_functions.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig06_rsm_info_functions.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -415,6 +430,7 @@ ax.text(-3.5, max_score / 2 + 0.2, f'得点 = {max_score/2:.1f}',
         fontsize=11, color='gray')
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig07_pcm_tcf.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig07_pcm_tcf.png', bbox_inches='tight')
 plt.show()
 

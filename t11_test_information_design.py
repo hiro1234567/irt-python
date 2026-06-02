@@ -3,10 +3,24 @@ T12: テスト情報関数とテスト設計：最適な問題セットをPython
 https://bigdata-analytics.jp/analytics/irt-test-information-design/
 
 記事内コードブロックの統合版。
+
+実行方法:
+  python t11_test_information_design.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t11_test_information_design.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
+
+# ============================================================
+# Code Block 1: import と matplotlib 共通設定
+# ============================================================
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import trapezoid
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -18,7 +32,9 @@ plt.rcParams.update({
     'font.family': 'Hiragino Sans',
 })
 
-# === 共通関数 ===
+# ============================================================
+# Code Block 2: 共通関数とテスト設定（10項目・2PL）
+# ============================================================
 
 def irf_2pl(theta, alpha, delta):
     """2PLモデルのIRF（項目反応関数）"""
@@ -29,15 +45,16 @@ def info_2pl(theta, alpha, delta):
     p = irf_2pl(theta, alpha, delta)
     return alpha**2 * p * (1 - p)
 
-# === テスト設定（10項目・2PLモデル） ===
-
+# テスト設定（10項目・2PLモデル）
 alphas = np.array([1.2, 1.5, 0.8, 2.0, 1.0, 1.8, 1.3, 0.9, 1.6, 1.1])
 deltas = np.array([-2.0, -1.2, -0.5, -0.1, 0.3, 0.7, 1.0, 1.5, 2.0, 2.5])
 n_items = len(alphas)
 
 theta = np.linspace(-4, 4, 500)
 
-# === セクション2: TCF ===
+# ============================================================
+# Code Block 3: テスト特性曲線（TCF）の可視化
+# ============================================================
 
 tcf = np.zeros_like(theta)
 for a, d in zip(alphas, deltas):
@@ -55,7 +72,9 @@ ax.grid(alpha=0.3)
 fig.tight_layout()
 plt.show()
 
-# === セクション3: テスト情報関数 + SEE ===
+# ============================================================
+# Code Block 4: テスト情報関数と推定標準誤差 SEE
+# ============================================================
 
 test_info = np.zeros_like(theta)
 for a, d in zip(alphas, deltas):
@@ -92,7 +111,9 @@ axes[1].legend()
 plt.tight_layout()
 plt.show()
 
-# === セクション4: 項目プール + peaked/rectangular選択 ===
+# ============================================================
+# Code Block 5: 項目プール（40項目）の生成と分布可視化
+# ============================================================
 
 np.random.seed(42)
 
@@ -116,7 +137,9 @@ axes[1].set_title('項目プールのδ分布')
 plt.tight_layout()
 plt.show()
 
-# --- peaked型の項目選択 ---
+# ============================================================
+# Code Block 6: peaked 型（合否判定）の項目選択
+# ============================================================
 
 theta_c = 0.0  # カットポイント（合格ライン）
 
@@ -134,7 +157,9 @@ print(f"  α = {peaked_alphas}")
 print(f"  δ = {peaked_deltas}")
 print(f"  θ_c での情報量 = {info_at_cut[peaked_indices].round(3)}")
 
-# --- rectangular型の項目選択（貪欲法） ---
+# ============================================================
+# Code Block 7: rectangular 型（等精度）の項目選択（貪欲法）
+# ============================================================
 
 theta_L, theta_U = -2.0, 2.0  # 等精度を狙うθの範囲
 theta_eval = np.linspace(theta_L, theta_U, 200)
@@ -174,7 +199,9 @@ print("\nrectangular型テスト（θ ∈ [−2, 2] で等精度を狙う）:")
 print(f"  α = {rect_alphas}")
 print(f"  δ = {rect_deltas}")
 
-# --- peaked vs rectangular 比較プロット ---
+# ============================================================
+# Code Block 8: peaked vs rectangular の比較プロット
+# ============================================================
 
 # peaked型のテスト情報関数
 info_peaked = np.zeros_like(theta)
@@ -219,7 +246,9 @@ axes[1].grid(alpha=0.3)
 plt.tight_layout()
 plt.show()
 
-# === セクション6: I_A ===
+# ============================================================
+# Code Block 9: 総合情報面積指標 I_A の計算
+# ============================================================
 
 # 数値積分でテスト情報関数の面積を計算
 area_peaked_numerical = trapezoid(info_peaked, theta)
@@ -238,7 +267,9 @@ print(f"\nrectangular型テスト:")
 print(f"  数値積分（面積）: {area_rect_numerical:.3f}")
 print(f"  近似式 Σα_j:     {ia_rect_approx:.3f}")
 
-# === セクション7: RE ===
+# ============================================================
+# Code Block 10: 相対効率 RE プロット
+# ============================================================
 
 # RE = peaked / rectangular
 re_peaked_vs_rect = np.where(info_rect > 1e-10,
@@ -266,7 +297,9 @@ ax.grid(alpha=0.3)
 fig.tight_layout()
 plt.show()
 
-# === セクション8: 項目数 vs SEE ===
+# ============================================================
+# Code Block 11: 項目数 vs SEE の関係
+# ============================================================
 
 n_items_list = [5, 10, 15, 20]
 see_at_cut = []

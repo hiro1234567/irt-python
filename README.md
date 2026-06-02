@@ -36,10 +36,38 @@ IRTの理論と実装を体系的にカバーした世界標準テキスト（�
 ## セットアップ
 
 ```bash
-pip install numpy scipy matplotlib
+pip install numpy scipy matplotlib pandas pymc arviz
 ```
 
-Python 3.9 以上を推奨。
+Python 3.9 以上を推奨。`pymc` と `arviz` は T7（MCMC）・T10（GRM-MCMC）・T17（Multilevel × POS）のみで使用します。それ以外の記事は `numpy scipy matplotlib pandas` だけで動きます。
+
+## 使い方
+
+各 `.py` は、対応する記事のコードブロックを上から順に並べたものです。記事を読みながら手元で同じ結果を出すための実装トレース用です。
+
+### 3つの実行方法
+
+```bash
+# (1) CLI で一気に実行(グラフはウィンドウで順次表示)
+python t01_mathematical_foundations.py
+
+# (2) グラフを表示せず数値だけ確認(CIや自動チェック向き)
+MPLBACKEND=Agg python t01_mathematical_foundations.py
+
+# (3) Jupyter / IPython で Code Block を1つずつコピペして対話的に試す
+```
+
+### グラフを画像として保存したいとき
+
+各ファイル冒頭に `SAVE_FIGS = False` フラグがあります。`True` に書き換えるとカレントディレクトリに `figXX_*.png` が保存されます。デフォルトは `False`(=実行ディレクトリを汚さない)。
+
+### 自分のデータで動かしたいとき
+
+各ファイルは合成データ(`np.random` で生成した受験者・項目データ)で動作します。`Code Block` 単位で読みながら、ご自身の応答行列 `X (n_persons, n_items)` を差し込めばそのまま動きます。詳細は記事本文を参照してください。
+
+### Code Block 構造
+
+各 `.py` は記事のコードブロックと1対1で対応する `# Code Block N: 内容` のコメントで区切られています。記事の「Code Block 5」を試したいときは、そのブロックだけコピペしてJupyterで実行できます。
 
 ## 記法
 

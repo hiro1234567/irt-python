@@ -7,3 +7,9 @@ build/
 .venv/
 venv/
 .env
+
+# SAVE_FIGS=True で出力される図(リポジトリには含めない)
+*.png
+*.jpg
+*.pdf
+output/

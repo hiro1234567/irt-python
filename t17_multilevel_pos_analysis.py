@@ -6,6 +6,13 @@ T17: Multilevel IRT × POS分析：購買データから顧客ロイヤルティ
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t17_multilevel_pos_analysis.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t17_multilevel_pos_analysis.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -19,6 +26,8 @@ from scipy import stats
 from scipy.special import expit
 import warnings
 warnings.filterwarnings('ignore')
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 # 図の見栄えを統一するための共通設定
 plt.rcParams.update({
@@ -83,7 +92,8 @@ for i in range(n_customers):
                 color='white' if purchases[i, j] > purchases.max()/2 else 'black')
 
 plt.tight_layout()
-plt.savefig('t17_fig01_test_vs_pos.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig01_test_vs_pos.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -119,7 +129,8 @@ ax.set_ylim(-0.5, 20)
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('t17_fig02_link_functions.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig02_link_functions.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -226,7 +237,8 @@ ax.grid(True, alpha=0.3, axis='y')
 ax.axhline(y=0, color='gray', linestyle='-', alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('t17_fig03_lltm_comparison.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig03_lltm_comparison.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 print(f"\n商品カテゴリ固有効果（ε）の分散: {eps_j.var():.4f}（真の値: {sigma_eps**2:.2f}）")
@@ -306,7 +318,8 @@ ax.text(0.95, 0.95, f'ICC = {icc:.3f}', transform=ax.transAxes,
         bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
 
 plt.tight_layout()
-plt.savefig('t17_fig04_three_level.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig04_three_level.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 print(f"\n=== 分散分解 ===")
@@ -425,7 +438,8 @@ ax.legend()
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('t17_fig05_parameter_recovery.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig05_parameter_recovery.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 print(f"\n=== パラメータ回復の結果 ===")
@@ -555,7 +569,8 @@ for i, (t, e) in enumerate(zip(true_vals, est_vals)):
     ax.text(i + width_var/2, e + 0.02, f'{e:.3f}', ha='center', fontsize=11)
 
 plt.tight_layout()
-plt.savefig('t17_fig06_three_level_recovery.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig06_three_level_recovery.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -617,7 +632,8 @@ ax.legend()
 ax.grid(True, alpha=0.3, axis='y')
 
 plt.tight_layout()
-plt.savefig('t17_fig07_segmentation.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig07_segmentation.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -651,6 +667,7 @@ ax.annotate('購買されにくい →', xy=(sorted_delta.max() - 0.5, -0.8),
             fontsize=12, color='red')
 
 plt.tight_layout()
-plt.savefig('t17_fig08_delta_ranking.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('t17_fig08_delta_ranking.png', dpi=150, bbox_inches='tight')
 plt.show()
 

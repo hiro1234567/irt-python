@@ -6,6 +6,13 @@ T09: 段階反応モデル（GRM）の数理｜多値IRTの累積確率アプロ
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t09_grm_theory.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t09_grm_theory.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -15,6 +22,8 @@ Repository: https://github.com/hiro1234567/irt-python
 import numpy as np
 from scipy.special import expit  # ロジスティック関数
 import matplotlib.pyplot as plt
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -87,7 +96,8 @@ ax.set_title(f'GRMカテゴリ確率曲線（α = {alpha}, δ = {list(deltas)}�
 ax.legend(loc='upper left')
 ax.set_ylim(-0.02, 1.02)
 plt.tight_layout()
-plt.savefig('fig10_01_category_probability.png')
+if SAVE_FIGS:
+    plt.savefig('fig10_01_category_probability.png')
 plt.close()
 
 # ============================================================
@@ -110,7 +120,8 @@ for idx, (a_val, a_label) in enumerate(zip(alpha_values, alpha_labels)):
     axes[idx].set_ylim(-0.02, 1.02)
 
 plt.tight_layout()
-plt.savefig('fig10_02_alpha_comparison.png')
+if SAVE_FIGS:
+    plt.savefig('fig10_02_alpha_comparison.png')
 plt.close()
 
 # ============================================================
@@ -129,7 +140,8 @@ ax.set_title('α = −1.5 の場合（逆転項目）')
 ax.legend(loc='upper right')
 ax.set_ylim(-0.02, 1.02)
 plt.tight_layout()
-plt.savefig('fig10_03_negative_alpha.png')
+if SAVE_FIGS:
+    plt.savefig('fig10_03_negative_alpha.png')
 plt.close()
 
 # ============================================================
@@ -149,7 +161,8 @@ ax.set_title(f'GRM累積確率曲線（α = {alpha}）')
 ax.legend(loc='lower right')
 ax.set_ylim(-0.02, 1.02)
 plt.tight_layout()
-plt.savefig('fig10_04_cumulative_curves.png')
+if SAVE_FIGS:
+    plt.savefig('fig10_04_cumulative_curves.png')
 plt.close()
 
 # ============================================================
@@ -189,7 +202,8 @@ ax.set_ylabel('I(θ)')
 ax.set_title('GRM項目情報関数：識別力αの効果')
 ax.legend()
 plt.tight_layout()
-plt.savefig('fig10_05_item_information.png')
+if SAVE_FIGS:
+    plt.savefig('fig10_05_item_information.png')
 plt.close()
 
 # ============================================================
@@ -265,7 +279,8 @@ ax.set_ylabel('正規化した対数確率')
 ax.set_title('MLE vs MAP 推定の比較')
 ax.legend()
 plt.tight_layout()
-plt.savefig('fig10_06_mle_vs_map.png')
+if SAVE_FIGS:
+    plt.savefig('fig10_06_mle_vs_map.png')
 plt.close()
 
 # ============================================================
@@ -332,6 +347,7 @@ ax.set_aspect('equal')
 ax.set_xlim(-3.5, 3.5)
 ax.set_ylim(-3.5, 3.5)
 plt.tight_layout()
-plt.savefig('fig10_07_theta_recovery.png')
+if SAVE_FIGS:
+    plt.savefig('fig10_07_theta_recovery.png')
 plt.close()
 

@@ -6,6 +6,13 @@ T16: Multilevel IRTの理論：GLMMフレームワークでIRTを再解釈する
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t16_multilevel_theory.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t16_multilevel_theory.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -19,6 +26,8 @@ from scipy.special import expit  # ロジスティック関数
 import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings('ignore')
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 # 図の見栄えを統一するための共通設定
 plt.rcParams.update({

@@ -6,6 +6,13 @@ T05: IRTの同時最尤推定法（JMLE）：項目と受験者を同時に推�
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t05_jmle_estimation.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t05_jmle_estimation.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -14,6 +21,8 @@ Repository: https://github.com/hiro1234567/irt-python
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -116,7 +125,8 @@ ax.set_title('正答(x=1)時の対数尤度')
 ax.plot(theta_range, theta_range, 'k--', alpha=0.5, label='θ = δ（確率0.5）')
 ax.legend()
 plt.tight_layout()
-plt.savefig('fig01_loglik_contour.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig01_loglik_contour.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -263,7 +273,8 @@ ax.legend(fontsize=10)
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig02_convergence.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig02_convergence.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -289,7 +300,8 @@ ax.axvline(x=0, color='r', linestyle='--', alpha=0.5, label='c = 0（推定値�
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig03_indeterminacy.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig03_indeterminacy.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 print(f"対数尤度の範囲: {min(ll_values):.6f} 〜 {max(ll_values):.6f}")
@@ -393,7 +405,8 @@ ax.legend()
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig04_extreme_score.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig04_extreme_score.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -499,7 +512,8 @@ ax.set_xticks(items)
 ax.legend()
 ax.grid(True, alpha=0.3, axis='y')
 plt.tight_layout()
-plt.savefig('fig05_fit_statistics.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig05_fit_statistics.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -567,7 +581,8 @@ ax.set_aspect('equal')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig06_invariance.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig06_invariance.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -603,6 +618,7 @@ axes[0].set_ylabel('ロジット尺度（θ / δ）')
 
 plt.suptitle('Variable Map（受験者-項目マップ）', fontsize=16, y=1.02)
 plt.tight_layout()
-plt.savefig('fig07_variable_map.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig07_variable_map.png', dpi=150, bbox_inches='tight')
 plt.show()
 

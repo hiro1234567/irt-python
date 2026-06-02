@@ -6,15 +6,24 @@ T10: GRMの母数推定とMCMC：段階反応モデルの識別力・境界パ�
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t10_grm_mcmc_estimation.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t10_grm_mcmc_estimation.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
-# Code Block 1
+# Code Block 1: import と matplotlib 共通設定
 # ============================================================
 
 import numpy as np
 from scipy.special import expit
 import matplotlib.pyplot as plt
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -27,7 +36,7 @@ plt.rcParams.update({
 })
 
 # ============================================================
-# Code Block 2
+# Code Block 2: GRM の累積確率・カテゴリ確率関数
 # ============================================================
 
 def grm_cumulative_prob(theta, alpha, delta_k):
@@ -47,7 +56,7 @@ def grm_category_prob(theta, alpha, deltas):
     return probs
 
 # ============================================================
-# Code Block 3
+# Code Block 3: 真値の設定と応答データの生成
 # ============================================================
 
 np.random.seed(42)
@@ -72,7 +81,7 @@ for i in range(N):
         responses[i, j] = np.random.choice(K, p=probs)
 
 # ============================================================
-# Code Block 4
+# Code Block 4: 事前分布と対数尤度関数の定義
 # ============================================================
 
 def log_prior_alpha(alpha, mu=0.0, sigma=1.0):
@@ -109,7 +118,7 @@ def log_likelihood_item_grm(alpha_j, deltas_j, thetas, responses_j):
     return ll
 
 # ============================================================
-# Code Block 5
+# Code Block 5: Metropolis-Hastings による MCMC サンプリング
 # ============================================================
 
 n_iter = 3000
@@ -180,14 +189,14 @@ for t in range(1, n_iter):
     theta_chain[t] = cur_theta
 
 # ============================================================
-# Code Block 6
+# Code Block 6: バーンイン除去・事後サンプルの取り出し
 # ============================================================
 
 alpha_post = alpha_chain[burn_in:]
 delta_post = delta_chain[burn_in:]
 
 # ============================================================
-# Code Block 7
+# Code Block 7: カテゴリ情報関数と項目情報関数の可視化
 # ============================================================
 
 def grm_item_information(theta_arr, alpha, deltas, dx=1e-5):
@@ -235,11 +244,12 @@ ax.set_ylabel('I(θ)')
 ax.set_title(f'カテゴリ情報関数と項目情報関数（α = {alpha_ex}）')
 ax.legend(fontsize=11)
 plt.tight_layout()
-plt.savefig('fig11_07_category_information.png')
-plt.close()
+if SAVE_FIGS:
+    plt.savefig('fig11_07_category_information.png')
+plt.show()
 
 # ============================================================
-# Code Block 8
+# Code Block 8: カテゴリ数の違いによる情報量の比較
 # ============================================================
 
 theta_range = np.linspace(-4, 4, 500)
@@ -260,11 +270,12 @@ ax.set_ylabel('I(θ)')
 ax.set_title('カテゴリ数を増やすと情報量は増加する（α = 1.5）')
 ax.legend()
 plt.tight_layout()
-plt.savefig('fig11_08_category_count_info.png')
-plt.close()
+if SAVE_FIGS:
+    plt.savefig('fig11_08_category_count_info.png')
+plt.show()
 
 # ============================================================
-# Code Block 9
+# Code Block 9: 推定値に基づくテスト情報関数
 # ============================================================
 
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -285,6 +296,7 @@ ax.set_ylabel('I(θ)')
 ax.set_title('テスト情報関数と標準誤差')
 ax.legend(fontsize=9, loc='upper left')
 plt.tight_layout()
-plt.savefig('fig11_09_test_information.png')
-plt.close()
+if SAVE_FIGS:
+    plt.savefig('fig11_09_test_information.png')
+plt.show()
 

@@ -6,6 +6,13 @@ T06: IRTの周辺最尤推定法（MMLE）：EMアルゴリズムとEAP推定を
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t06_mmle_estimation.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t06_mmle_estimation.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -15,6 +22,8 @@ Repository: https://github.com/hiro1234567/irt-python
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -71,7 +80,8 @@ ax.legend(loc='upper right')
 ax.set_xlim(-4.5, 4.5)
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig01_quadrature.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig01_quadrature.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -227,7 +237,8 @@ ax.set_title('周辺対数尤度の推移')
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig03_em_convergence.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig03_em_convergence.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -328,7 +339,8 @@ ax.legend(loc='upper right')
 ax.set_xlim(-4, 6)
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig02_bayesian.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig02_bayesian.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -374,7 +386,8 @@ ax.legend()
 ax.grid(True, alpha=0.3)
 ax.set_xlim(-5, 5)
 plt.tight_layout()
-plt.savefig('fig05_eap_posteriors.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig05_eap_posteriors.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -431,7 +444,8 @@ ax.set_aspect('equal')
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('fig04_eap_vs_mle.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig04_eap_vs_mle.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -508,7 +522,8 @@ ax.set_aspect('equal')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig06_jmle_vs_mmle.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig06_jmle_vs_mmle.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -543,6 +558,7 @@ ax.set_ylim(0, J_sim + 0.3)
 ax.axhline(y=J_sim, color='gray', linestyle=':', alpha=0.4)
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
-plt.savefig('fig07_tcf.png', dpi=150, bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('fig07_tcf.png', dpi=150, bbox_inches='tight')
 plt.show()
 

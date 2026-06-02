@@ -5,10 +5,19 @@ https://bigdata-analytics.jp/analytics/irt-likelihood-mle/
 de Ayala (2022) Ch.2後半に対応。
 尤度関数 → 対数尤度 → MLE → 全問正答/誤答問題 → SEE・Fisher情報量
 → 項目情報関数 → テスト情報関数 → テスト設計への応用
+
+実行方法:
+  python t02_likelihood_mle.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t02_likelihood_mle.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 import numpy as np
 from scipy.optimize import minimize_scalar
 import matplotlib.pyplot as plt
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 150,
@@ -71,7 +80,7 @@ def test_information(theta, alpha, deltas):
 
 
 # ============================================================
-# 1. 尤度関数 L(θ)
+# Code Block 1: 尤度関数 L(θ)
 # ============================================================
 print("=== 1. 尤度関数 ===")
 L_values = np.array([likelihood(t, alpha, deltas, responses) for t in theta_grid])
@@ -93,7 +102,7 @@ plt.show()
 
 
 # ============================================================
-# 2. 対数尤度と最尤推定（MLE）
+# Code Block 2: 対数尤度と最尤推定（MLE）
 # ============================================================
 print("\n=== 2. 対数尤度とMLE ===")
 ll_values = np.array([log_likelihood(t, alpha, deltas, responses) for t in theta_grid])
@@ -130,7 +139,7 @@ plt.show()
 
 
 # ============================================================
-# 3. 全問正答・全問誤答の問題
+# Code Block 3: 全問正答・全問誤答の問題
 # ============================================================
 print("\n=== 3. 全問正答・全問誤答の問題 ===")
 patterns = {
@@ -156,7 +165,7 @@ plt.show()
 
 
 # ============================================================
-# 4. 項目情報関数
+# Code Block 4: 項目情報関数
 # ============================================================
 print("\n=== 4. 項目情報関数 ===")
 fig, axes = plt.subplots(1, 2, figsize=(14, 6))
@@ -188,7 +197,7 @@ plt.show()
 
 
 # ============================================================
-# 5. テスト情報関数とSEE
+# Code Block 5: テスト情報関数とSEE
 # ============================================================
 print("\n=== 5. テスト情報関数とSEE ===")
 test_info = test_information(theta_grid, alpha, deltas)
@@ -219,7 +228,7 @@ plt.show()
 
 
 # ============================================================
-# 6. 信頼帯の構成
+# Code Block 6: 信頼帯の構成
 # ============================================================
 print("\n=== 6. 信頼帯 ===")
 info_at_mle = test_information(np.array([theta_mle]), alpha, deltas)[0]
@@ -247,7 +256,7 @@ plt.show()
 
 
 # ============================================================
-# 7. テスト設計の比較
+# Code Block 7: テスト設計の比較
 # ============================================================
 print("\n=== 7. テスト設計の比較 ===")
 deltas_focused = np.array([-0.5, -0.2, 0.0, 0.2, 0.5,

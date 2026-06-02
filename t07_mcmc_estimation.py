@@ -6,6 +6,13 @@ T07: MCMCによるIRT母数推定：ギブスサンプラーとPyMCでベイズI
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t07_mcmc_estimation.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t07_mcmc_estimation.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -15,6 +22,8 @@ Repository: https://github.com/hiro1234567/irt-python
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -67,7 +76,8 @@ ax.set_ylabel('密度')
 ax.set_title('ベイズ推定：事前分布 × 尤度 → 事後分布')
 ax.legend(loc='upper right')
 plt.tight_layout()
-plt.savefig('fig07_01_prior_likelihood_posterior.png')
+if SAVE_FIGS:
+    plt.savefig('fig07_01_prior_likelihood_posterior.png')
 plt.close()
 
 # ============================================================
@@ -123,7 +133,8 @@ axes[1].set_title('事後分布の近似')
 axes[1].legend()
 
 plt.tight_layout()
-plt.savefig('fig07_02_mh_simple_example.png')
+if SAVE_FIGS:
+    plt.savefig('fig07_02_mh_simple_example.png')
 plt.close()
 
 # ============================================================
@@ -252,7 +263,8 @@ axes[1, 2].set_visible(False)
 
 plt.suptitle('項目パラメータ δ のトレースプロット', fontsize=18, y=1.02)
 plt.tight_layout()
-plt.savefig('fig07_03_trace_plot_delta.png')
+if SAVE_FIGS:
+    plt.savefig('fig07_03_trace_plot_delta.png')
 plt.close()
 
 # ============================================================
@@ -290,7 +302,8 @@ for j in range(J):
 
 plt.suptitle('項目パラメータ δ の事後分布', fontsize=18, y=1.05)
 plt.tight_layout()
-plt.savefig('fig07_04_posterior_delta.png')
+if SAVE_FIGS:
+    plt.savefig('fig07_04_posterior_delta.png')
 plt.close()
 
 # ============================================================
@@ -380,7 +393,8 @@ for j in range(J_2pl):
 az.plot_trace(trace, var_names=['delta', 'alpha'], figsize=(14, 16))
 plt.suptitle('2PLモデルの収束診断：トレースプロット', fontsize=16, y=1.01)
 plt.tight_layout()
-plt.savefig('fig07_05_pymc_trace_2pl.png')
+if SAVE_FIGS:
+    plt.savefig('fig07_05_pymc_trace_2pl.png')
 plt.close()
 
 # ============================================================
@@ -421,6 +435,7 @@ axes[1].legend()
 axes[1].set_aspect('equal')
 
 plt.tight_layout()
-plt.savefig('fig07_06_true_vs_estimated.png')
+if SAVE_FIGS:
+    plt.savefig('fig07_06_true_vs_estimated.png')
 plt.close()
 

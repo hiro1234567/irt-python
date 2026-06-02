@@ -6,6 +6,13 @@ T04: IRTの3パラメータモデル：当て推量χと異常反応パターン
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t04_3pl_person_fit.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t04_3pl_person_fit.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -16,6 +23,8 @@ import numpy as np
 from scipy import stats
 from scipy.optimize import minimize
 import matplotlib.pyplot as plt
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 plt.rcParams.update({
     'figure.dpi': 220,
@@ -86,7 +95,8 @@ ax.legend(loc='upper left', fontsize=11)
 ax.set_xlim(-4, 4)
 ax.set_ylim(-0.05, 1.05)
 plt.tight_layout()
-plt.savefig('irt_3pl_floor_comparison.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_floor_comparison.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -114,7 +124,8 @@ ax.legend(loc='upper left', fontsize=11)
 ax.set_xlim(-4, 4)
 ax.set_ylim(-0.05, 1.05)
 plt.tight_layout()
-plt.savefig('irt_3pl_chi_comparison.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_chi_comparison.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -145,7 +156,8 @@ ax.set_xlabel('識別力 α')
 ax.set_ylabel('当て推量 χ')
 ax.set_title('3PLの対数尤度：α-χ平面（δ=0 固定）')
 plt.tight_layout()
-plt.savefig('irt_3pl_loglik_surface.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_loglik_surface.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -181,7 +193,8 @@ ax.set_title(f'項目情報関数の比較（α={alpha}, δ={delta}）')
 ax.legend(loc='upper right', fontsize=11)
 ax.set_xlim(-4, 4)
 plt.tight_layout()
-plt.savefig('irt_3pl_info_comparison.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_info_comparison.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -219,7 +232,8 @@ ax.set_title('テスト情報関数の比較：2PL vs 3PL（5項目）')
 ax.legend(loc='upper right', fontsize=11)
 ax.set_xlim(-4, 4)
 plt.tight_layout()
-plt.savefig('irt_3pl_test_info.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_test_info.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -320,7 +334,8 @@ ax.set_ylabel('密度')
 ax.set_title('Person Fit 指標 l_z の分布')
 ax.legend(loc='upper left', fontsize=11)
 plt.tight_layout()
-plt.savefig('irt_3pl_lz_distribution.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_lz_distribution.png', bbox_inches='tight')
 plt.show()
 
 flagged_normal = (lz_normal < cutoff).sum()
@@ -381,7 +396,8 @@ for ax_i, (idx, title_label) in enumerate([
     ax.set_ylim(-0.1, 1.1)
 
 plt.tight_layout()
-plt.savefig('irt_3pl_prf_comparison.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_prf_comparison.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -488,6 +504,7 @@ y_max = max(max(aic_vals), max(bic_vals)) * 1.0001
 ax.set_ylim(y_min, y_max)
 
 plt.tight_layout()
-plt.savefig('irt_3pl_model_comparison.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_3pl_model_comparison.png', bbox_inches='tight')
 plt.show()
 

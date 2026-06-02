@@ -6,6 +6,13 @@ T15: 項目機能差異（DIF）の検出：テストの公平性をPythonで統
 
 Author: Hiroyuki Matsumoto (Digital Boy LLC)
 Repository: https://github.com/hiro1234567/irt-python
+
+実行方法:
+  python t15_dif_detection.py
+    → CLIで一気に実行。グラフはウィンドウで順次表示される
+  MPLBACKEND=Agg python t15_dif_detection.py
+    → グラフ表示せず数値だけ確認
+  Jupyterで Code Block を1つずつコピペして対話的に試すのも可
 """
 
 # ============================================================
@@ -16,6 +23,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.optimize import minimize
+
+SAVE_FIGS = False  # True にすると plt.savefig() で画像保存される
 
 # 図の見栄えを統一するための共通設定
 plt.rcParams.update({
@@ -63,7 +72,8 @@ ax.set_ylim(-0.02, 1.02)
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('irt_dif_01_types.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_dif_01_types.png', bbox_inches='tight')
 plt.show()
 
 # ============================================================
@@ -630,6 +640,7 @@ ax.set_ylim(-0.02, 1.02)
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('irt_dif_05_irf_comparison.png', bbox_inches='tight')
+if SAVE_FIGS:
+    plt.savefig('irt_dif_05_irf_comparison.png', bbox_inches='tight')
 plt.show()
 
